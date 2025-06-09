@@ -1,7 +1,7 @@
 .sidebar {
   width: 250px;
   height: 100vh;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #334155 0%, #1e293b 100%);
   color: white;
   box-shadow: 2px 0 20px rgba(0,0,0,0.15);
   transition: width 0.3s ease;
@@ -11,6 +11,7 @@
   flex-shrink: 0;
   display: flex;
   flex-direction: column;
+  overflow: visible;
 }
 
 .sidebar::before {
@@ -90,7 +91,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background 0.3s ease;
+  transition: all 0.3s ease;
   flex-shrink: 0;
   position: absolute;
   right: 10px;
@@ -98,8 +99,21 @@
   transform: translateY(-50%);
 }
 
+.sidebar.collapsed .toggle-btn {
+  width: 20px;
+  height: 60px;
+  border-radius: 0 4px 4px 0;
+  right: -20px;
+  background: linear-gradient(135deg, #334155 0%, #1e293b 100%);
+  box-shadow: 2px 0 4px rgba(0, 0, 0, 0.2);
+}
+
 .toggle-btn:hover {
   background: rgba(255,255,255,0.3);
+}
+
+.sidebar.collapsed .toggle-btn:hover {
+  background: linear-gradient(135deg, #475569 0%, #334155 100%);
 }
 
 .sidebar-nav {

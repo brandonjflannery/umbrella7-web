@@ -1,0 +1,51 @@
+.homepage-2 {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  background: #0a0a0a;
+}
+
+.wave-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.homepage-2-content {
+  position: relative;
+  z-index: 2;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  text-align: center;
+}
+
+.logo-container {
+  margin-bottom: 40px;
+}
+
+.homepage-logo {
+  width: 300px;
+  height: 300px;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 20px rgba(0, 0, 0, 0.3));
+  opacity: 0.9;
+  animation: none !important;
+  transform: none !important;
+}
+
+.company-tagline {
+  font-size: 24px;
+  font-weight: 300;
+  color: rgba(255, 255, 255, 0.9);
+  max-width: 800px;
+  line-height: 1.6;
+  letter-spacing: 0.02em;
+}
