@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { getImagePath } from '../utils/getImagePath';
 import './LoginPage.css';
 
 const LoginPage = () => {
@@ -16,7 +17,7 @@ const LoginPage = () => {
       <div className="login-container">
         <div className="login-box">
           <img 
-            src="/umbrella-logo-plain.png" 
+            src={getImagePath('umbrella-logo-plain.png')}
             alt="Umbrella 7" 
             className="login-logo"
           />
@@ -54,7 +55,7 @@ const LoginPage = () => {
           </form>
           
           <p className="login-footer">
-            Don't have an account? <a href="#">Contact us</a>
+            Don't have an account? <a href="mailto:contact@umbrella7.ai">Contact us</a>
           </p>
         </div>
       </div>

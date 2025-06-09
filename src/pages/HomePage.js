@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { getImagePath } from '../utils/getImagePath';
 import './HomePage.css';
 
 const HomePage = () => {
@@ -22,7 +23,7 @@ const HomePage = () => {
       <div className="homepage-content">
         <div className="logo-container">
           <img 
-            src="/umbrella-logo-plain.png" 
+            src={getImagePath('umbrella-logo-plain.png')}
             alt="Umbrella 7" 
             className="homepage-logo"
           />

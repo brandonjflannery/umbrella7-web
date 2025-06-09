@@ -31,11 +31,19 @@
 .sidebar-header {
   display: flex;
   align-items: center;
+  justify-content: center;
   padding: 20px;
   border-bottom: 1px solid rgba(255,255,255,0.2);
   position: relative;
   z-index: 1;
   background: rgba(0, 0, 0, 0.25);
+  min-height: 140px;
+}
+
+.sidebar.collapsed .sidebar-header {
+  justify-content: center;
+  padding: 20px 10px;
+  min-height: 90px;
 }
 
 .logo-link {
@@ -57,17 +65,21 @@
   padding: 4px;
 }
 
-.app-title {
-  margin-left: 15px;
-  font-size: 20px;
-  font-weight: 600;
-  white-space: nowrap;
-  color: white;
+.header-logo {
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
+  opacity: 0.9;
+  filter: brightness(0) invert(1);
+  transition: all 0.3s ease;
+}
+
+.sidebar.collapsed .header-logo {
+  width: 50px;
+  height: 50px;
 }
 
 .toggle-btn {
-  position: absolute;
-  right: 10px;
   background: rgba(255,255,255,0.2);
   border: none;
   color: white;
@@ -79,6 +91,11 @@
   align-items: center;
   justify-content: center;
   transition: background 0.3s ease;
+  flex-shrink: 0;
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 .toggle-btn:hover {

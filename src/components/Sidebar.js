@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { getImagePath } from '../utils/getImagePath';
 import './Sidebar.css';
 
 const HomeIcon = ({ className }) => (
@@ -32,16 +33,11 @@ const Sidebar = ({ collapsed, setCollapsed }) => {
   return (
     <div className={`sidebar ${collapsed ? 'collapsed' : ''}`}>
       <div className="sidebar-header">
-        <Link to="/" className="logo-link">
-          <img 
-            src="/umbrella-logo-plain.png" 
-            alt="Umbrella 7" 
-            className="sidebar-logo"
-          />
-        </Link>
-        {!collapsed && (
-          <span className="app-title">Umbrella 7</span>
-        )}
+        <img 
+          src={getImagePath('umbrella-logo-plain.png')}
+          alt="Umbrella 7" 
+          className="header-logo"
+        />
         <button className="toggle-btn" onClick={toggleSidebar}>
           {collapsed ? '→' : '←'}
         </button>
@@ -66,7 +62,7 @@ const Sidebar = ({ collapsed, setCollapsed }) => {
       <div className="sidebar-footer">
         <div className="footer-content">
           <img 
-            src="/umbrella-logo-plain.png" 
+            src={getImagePath('umbrella-logo-plain.png')}
             alt="Umbrella Logo" 
             className="footer-logo"
           />
