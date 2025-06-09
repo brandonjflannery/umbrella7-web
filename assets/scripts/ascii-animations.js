@@ -149,8 +149,7 @@ function initAnimations() {
 
 // Update theme colors
 function updateThemeColors(theme) {
-    document.documentElement.style.setProperty('--ascii-color', theme.color);
-    document.documentElement.style.setProperty('--ascii-bg', theme.bgColor);
+    document.body.setAttribute('data-theme', theme.name);
 }
 
 // Start hero animation
