@@ -39,9 +39,14 @@ export class WaveAnimation {
           gridX: i,
           gridY: j,
           size: this.dotSize,
+          targetSize: this.dotSize,
           opacity: 1,
+          targetOpacity: 1,
           color: `rgb(${this.baseColor.r}, ${this.baseColor.g}, ${this.baseColor.b})`,
-          energy: 0 // Track wave energy at this point
+          targetColor: { r: this.baseColor.r, g: this.baseColor.g, b: this.baseColor.b },
+          currentColor: { r: this.baseColor.r, g: this.baseColor.g, b: this.baseColor.b },
+          energy: 0,
+          smoothEnergy: 0 // Smoothed energy value
         });
       }
     }
@@ -133,10 +138,11 @@ export class WaveAnimation {
       // Only animate dots in the wave zone
       if (distanceFromBottom > waveZone) {
         // Static dots above wave zone
-        dot.opacity = 0.3;
-        dot.color = `rgba(${this.baseColor.r}, ${this.baseColor.g}, ${this.baseColor.b}, 0.3)`;
-        dot.size = this.dotSize;
+        dot.targetOpacity = 0.3;
+        dot.targetColor = { r: this.baseColor.r, g: this.baseColor.g, b: this.baseColor.b };
+        dot.targetSize = this.dotSize;
         dot.energy = 0;
+        dot.smoothEnergy = dot.smoothEnergy * 0.95; // Smooth fade out
         return;
       }
       
@@ -207,35 +213,60 @@ export class WaveAnimation {
       // Clamp energy
       dot.energy = Math.max(0, Math.min(1, (dot.energy + 1) / 2));
       
-      // Calculate color based on energy
+      // Smooth energy transitions
+      const energySmoothing = 0.15; // Higher = smoother but slower response
+      dot.smoothEnergy = dot.smoothEnergy + (dot.energy - dot.smoothEnergy) * energySmoothing;
+      
+      // Calculate target color based on smoothed energy
       let r, g, b;
-      if (dot.energy < 0.33) {
+      if (dot.smoothEnergy < 0.33) {
         // Base to shallow transition
-        const t = dot.energy / 0.33;
+        const t = dot.smoothEnergy / 0.33;
         r = this.baseColor.r + (this.shallowColor.r - this.baseColor.r) * t;
         g = this.baseColor.g + (this.shallowColor.g - this.baseColor.g) * t;
         b = this.baseColor.b + (this.shallowColor.b - this.baseColor.b) * t;
-      } else if (dot.energy < 0.66) {
+      } else if (dot.smoothEnergy < 0.66) {
         // Shallow to wave transition
-        const t = (dot.energy - 0.33) / 0.33;
+        const t = (dot.smoothEnergy - 0.33) / 0.33;
         r = this.shallowColor.r + (this.waveColor.r - this.shallowColor.r) * t;
         g = this.shallowColor.g + (this.waveColor.g - this.shallowColor.g) * t;
         b = this.shallowColor.b + (this.waveColor.b - this.shallowColor.b) * t;
       } else {
         // Wave to foam transition
-        const t = (dot.energy - 0.66) / 0.34;
+        const t = (dot.smoothEnergy - 0.66) / 0.34;
         r = this.waveColor.r + (this.foamColor.r - this.waveColor.r) * t;
         g = this.waveColor.g + (this.foamColor.g - this.waveColor.g) * t;
         b = this.waveColor.b + (this.foamColor.b - this.waveColor.b) * t;
       }
       
-      dot.color = `rgb(${Math.floor(r)}, ${Math.floor(g)}, ${Math.floor(b)})`;
+      dot.targetColor = { r: r, g: g, b: b };
       
-      // Size based on energy
-      dot.size = this.dotSize + dot.energy * 4 * zoneInfluence;
+      // Target size based on smoothed energy
+      dot.targetSize = this.dotSize + dot.smoothEnergy * 4 * zoneInfluence;
       
-      // Opacity based on zone position and energy
-      dot.opacity = 0.4 + zoneInfluence * 0.3 + dot.energy * 0.3;
+      // Target opacity based on zone position and smoothed energy
+      dot.targetOpacity = 0.4 + zoneInfluence * 0.3 + dot.smoothEnergy * 0.3;
+    });
+    
+    // Apply smooth transitions to all dots
+    const sizeSmoothing = 0.2;
+    const colorSmoothing = 0.2;
+    const opacitySmoothing = 0.2;
+    
+    this.dots.forEach(dot => {
+      // Smooth size transitions
+      dot.size = dot.size + (dot.targetSize - dot.size) * sizeSmoothing;
+      
+      // Smooth color transitions
+      dot.currentColor.r = dot.currentColor.r + (dot.targetColor.r - dot.currentColor.r) * colorSmoothing;
+      dot.currentColor.g = dot.currentColor.g + (dot.targetColor.g - dot.currentColor.g) * colorSmoothing;
+      dot.currentColor.b = dot.currentColor.b + (dot.targetColor.b - dot.currentColor.b) * colorSmoothing;
+      
+      // Smooth opacity transitions
+      dot.opacity = dot.opacity + (dot.targetOpacity - dot.opacity) * opacitySmoothing;
+      
+      // Update color string
+      dot.color = `rgb(${Math.floor(dot.currentColor.r)}, ${Math.floor(dot.currentColor.g)}, ${Math.floor(dot.currentColor.b)})`;
     });
   }
   
