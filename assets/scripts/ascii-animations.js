@@ -177,6 +177,12 @@ function renderIcons() {
 
 // Switch theme
 function switchTheme(themeName) {
+    console.log('Switching to theme:', themeName);
+    if (!themes[themeName]) {
+        console.error('Theme not found:', themeName);
+        return;
+    }
+    
     currentTheme = themeName;
     animationFrame = 0;
     initAnimations();

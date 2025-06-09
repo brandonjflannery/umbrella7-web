@@ -324,16 +324,39 @@ body {
 }
 
 /* Theme-specific overrides for ASCII colors */
-body[data-theme="terminal"] {
-    --ascii-color: #00ff00;
+body[data-theme="terminal"] .ascii-animation,
+body[data-theme="terminal"] .ascii-icon,
+body[data-theme="terminal"] .ascii-canvas {
+    color: #00ff00 !important;
+    text-shadow: 0 0 5px #00ff00;
 }
 
-body[data-theme="neural"] {
-    --ascii-color: #667eea;
+body[data-theme="neural"] .ascii-animation,
+body[data-theme="neural"] .ascii-icon,
+body[data-theme="neural"] .ascii-canvas {
+    color: #667eea !important;
 }
 
-body[data-theme="matrix"] {
-    --ascii-color: #00ff00;
+body[data-theme="matrix"] .ascii-animation,
+body[data-theme="matrix"] .ascii-icon,
+body[data-theme="matrix"] .ascii-canvas {
+    color: #00c851 !important;
+    font-family: 'Courier New', monospace;
+    text-shadow: 0 0 3px #00c851;
+}
+
+/* Dark backgrounds for terminal themes */
+body[data-theme="terminal"] .interactive-canvas,
+body[data-theme="matrix"] .interactive-canvas {
+    background: #0a0a0a;
+    border-color: #333;
+}
+
+body[data-theme="terminal"] .ascii-animation,
+body[data-theme="matrix"] .ascii-animation {
+    background: rgba(0, 0, 0, 0.8);
+    padding: 20px;
+    border-radius: 8px;
 }
 
 /* Responsive Design */

@@ -5,7 +5,9 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Theme switcher
     document.querySelectorAll('.theme-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            console.log('Theme button clicked:', btn.dataset.theme);
             switchTheme(btn.dataset.theme);
         });
     });
