@@ -55,7 +55,7 @@ const LoginPage = () => {
           </form>
           
           <p className="login-footer">
-            Don't have an account? <a href="mailto:contact@umbrella7.ai">Contact us</a>
+            Don't have an account? <a href="mailto:brandonjflannery@gmail.com">Contact us</a>
           </p>
         </div>
       </div>
