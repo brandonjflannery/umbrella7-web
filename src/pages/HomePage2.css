@@ -27,6 +27,7 @@
   align-items: center;
   justify-content: center;
   padding: 40px;
+  padding-bottom: 30vh; /* Account for wave zone - pushes content up */
   text-align: center;
   overflow-y: auto;
 }
@@ -59,9 +60,8 @@
 @media (max-width: 768px) {
   .homepage-2-content {
     padding: 20px;
-    padding-top: 80px; /* Space for menu button */
-    justify-content: flex-start; /* Align content to top */
-    padding-top: 100px; /* More space from top */
+    padding-bottom: 45vh; /* Account for larger wave zone on mobile */
+    justify-content: center;
   }
   
   .homepage-logo {
