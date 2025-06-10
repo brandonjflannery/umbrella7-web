@@ -28,7 +28,7 @@
 }
 
 .logo-container {
-  margin-bottom: 40px;
+  margin-bottom: 20px;
 }
 
 .homepage-logo {
@@ -48,4 +48,49 @@
   max-width: 800px;
   line-height: 1.6;
   letter-spacing: 0.02em;
+}
+
+@media (max-width: 768px) {
+  .homepage-2-content {
+    padding: 20px;
+    padding-top: 80px; /* Space for menu button */
+    justify-content: flex-start; /* Align content to top */
+    padding-top: 100px; /* More space from top */
+  }
+  
+  .homepage-logo {
+    width: 150px;
+    height: 150px;
+  }
+  
+  .logo-container {
+    margin-bottom: 10px;
+  }
+  
+  .company-tagline {
+    font-size: 16px;
+    line-height: 1.4;
+    max-width: 100%;
+    margin-bottom: 40px; /* Push content up from waves */
+  }
+}
+
+@media (max-width: 480px) {
+  .homepage-2-content {
+    padding-top: 80px; /* Less padding on smaller screens */
+  }
+  
+  .homepage-logo {
+    width: 120px;
+    height: 120px;
+  }
+  
+  .logo-container {
+    margin-bottom: 10px;
+  }
+  
+  .company-tagline {
+    font-size: 14px;
+    margin-bottom: 30px;
+  }
 }

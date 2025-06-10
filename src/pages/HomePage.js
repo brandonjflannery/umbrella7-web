@@ -4,7 +4,7 @@ import './HomePage.css';
 
 const HomePage = () => {
   const [displayedText, setDisplayedText] = useState('');
-  const fullText = 'Umbrella 7 is an applied machine-learning research firm developing next generation digital infrastructure for modern enterprises';
+  const fullText = 'Applied Machine-Learning Research';
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
@@ -23,7 +23,7 @@ const HomePage = () => {
       <div className="homepage-content">
         <div className="logo-container">
           <img 
-            src={getImagePath('umbrella-logo-plain.png')}
+            src={getImagePath('umbrella7-plain.png')}
             alt="Umbrella 7" 
             className="homepage-logo"
           />

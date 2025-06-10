@@ -13,20 +13,42 @@ const HomePage2 = () => {
     if (!canvas) return;
 
     const resizeCanvas = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
+      // Handle device pixel ratio for crisp rendering
+      const dpr = window.devicePixelRatio || 1;
+      const rect = canvas.getBoundingClientRect();
+      
+      // Set actual canvas size in memory
+      canvas.width = rect.width * dpr;
+      canvas.height = rect.height * dpr;
+      
+      // Scale canvas back down using CSS
+      canvas.style.width = rect.width + 'px';
+      canvas.style.height = rect.height + 'px';
+      
+      // Scale the drawing context to match device pixel ratio
+      const ctx = canvas.getContext('2d');
+      ctx.scale(dpr, dpr);
       
       if (animationRef.current) {
-        animationRef.current.resize(canvas.width, canvas.height);
+        animationRef.current.resize(rect.width, rect.height);
       }
     };
 
     resizeCanvas();
     animationRef.current = new WaveAnimation(canvas);
 
-    const animate = () => {
-      if (animationRef.current) {
-        animationRef.current.animate();
+    // Reduce frame rate on mobile for better performance
+    const isMobile = window.innerWidth < 768;
+    let lastTime = 0;
+    const targetFPS = isMobile ? 30 : 60;
+    const frameInterval = 1000 / targetFPS;
+
+    const animate = (currentTime) => {
+      if (currentTime - lastTime > frameInterval) {
+        if (animationRef.current) {
+          animationRef.current.animate();
+        }
+        lastTime = currentTime;
       }
       animationFrameRef.current = requestAnimationFrame(animate);
     };
@@ -49,13 +71,13 @@ const HomePage2 = () => {
       <div className="homepage-2-content">
         <div className="logo-container">
           <img 
-            src={getImagePath('umbrella-logo-plain.png')}
+            src={getImagePath('umbrella7-plain.png')}
             alt="Umbrella 7"
             className="homepage-logo"
           />
         </div>
         <h1 className="company-tagline">
-          Umbrella 7 is an applied machine-learning research firm developing next generation digital infrastructure for modern enterprises
+          Applied Machine-Learning Research
         </h1>
       </div>
     </div>

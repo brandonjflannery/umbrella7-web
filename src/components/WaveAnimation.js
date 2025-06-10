@@ -5,9 +5,10 @@ export class WaveAnimation {
     this.dots = [];
     this.time = 0;
     
-    // Grid settings
-    this.dotSize = 4;
-    this.spacing = 12;
+    // Grid settings - adjust for mobile
+    const isMobile = window.innerWidth < 768;
+    this.dotSize = isMobile ? 3 : 4;
+    this.spacing = isMobile ? 10 : 12;
     
     // Ocean simulation
     this.waves = [];
@@ -103,13 +104,18 @@ export class WaveAnimation {
   update() {
     this.time += 1;
     
-    // Randomly generate new waves
-    if (Math.random() < 0.02) {
+    // Randomly generate new waves - less frequent on mobile
+    const isMobile = window.innerWidth < 768;
+    const waveChance = isMobile ? 0.01 : 0.02;
+    const currentChance = isMobile ? 0.005 : 0.01;
+    const maxCurrents = isMobile ? 2 : 3;
+    
+    if (Math.random() < waveChance) {
       this.createWave();
     }
     
     // Randomly generate currents
-    if (Math.random() < 0.01 && this.currents.length < 3) {
+    if (Math.random() < currentChance && this.currents.length < maxCurrents) {
       this.createCurrent();
     }
     
@@ -133,7 +139,8 @@ export class WaveAnimation {
     // Update each dot
     this.dots.forEach(dot => {
       const distanceFromBottom = this.canvas.height - dot.y;
-      const waveZone = this.canvas.height * 0.25; // Bottom 25% only
+      const isMobile = window.innerWidth < 768;
+      const waveZone = this.canvas.height * (isMobile ? 0.4 : 0.25); // 40% on mobile, 25% on desktop
       
       // Only animate dots in the wave zone
       if (distanceFromBottom > waveZone) {
@@ -241,8 +248,9 @@ export class WaveAnimation {
       
       dot.targetColor = { r: r, g: g, b: b };
       
-      // Target size based on smoothed energy
-      dot.targetSize = this.dotSize + dot.smoothEnergy * 4 * zoneInfluence;
+      // Target size based on smoothed energy - smaller variation on mobile
+      const sizeVariation = isMobile ? 2.5 : 4;
+      dot.targetSize = this.dotSize + dot.smoothEnergy * sizeVariation * zoneInfluence;
       
       // Target opacity based on zone position and smoothed energy
       dot.targetOpacity = 0.4 + zoneInfluence * 0.3 + dot.smoothEnergy * 0.3;
@@ -275,15 +283,21 @@ export class WaveAnimation {
     this.ctx.fillStyle = '#0a0a0a';
     this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
     
+    // Save context state
+    this.ctx.save();
+    
     // Render dots
     this.dots.forEach(dot => {
       this.ctx.globalAlpha = dot.opacity;
       this.ctx.fillStyle = dot.color;
       this.ctx.beginPath();
-      this.ctx.arc(dot.x, dot.y, dot.size, 0, Math.PI * 2);
+      // Ensure perfect circles by using exact radius
+      this.ctx.arc(Math.round(dot.x), Math.round(dot.y), Math.round(dot.size), 0, Math.PI * 2);
       this.ctx.fill();
     });
     
+    // Restore context state
+    this.ctx.restore();
     this.ctx.globalAlpha = 1;
   }
   
