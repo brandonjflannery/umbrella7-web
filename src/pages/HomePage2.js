@@ -38,8 +38,16 @@ const HomePage2 = () => {
       }
     };
 
-    resizeCanvas();
-    animationRef.current = new WaveAnimation(canvas);
+    // Initial setup with a small delay to ensure DOM is ready
+    setTimeout(() => {
+      resizeCanvas();
+      animationRef.current = new WaveAnimation(canvas);
+      
+      // Force initial render
+      if (animationRef.current) {
+        animationRef.current.animate();
+      }
+    }, 100);
 
     // Reduce frame rate on mobile for better performance
     const isMobile = window.innerWidth < 768;
