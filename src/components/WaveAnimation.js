@@ -140,7 +140,9 @@ export class WaveAnimation {
     this.dots.forEach(dot => {
       const distanceFromBottom = this.canvas.height - dot.y;
       const isMobile = window.innerWidth < 768;
-      const waveZone = this.canvas.height * (isMobile ? 0.4 : 0.25); // 40% on mobile, 25% on desktop
+      const minWaveHeight = 150; // Minimum wave zone height
+      const wavePercentage = isMobile ? 0.4 : 0.25;
+      const waveZone = Math.max(minWaveHeight, this.canvas.height * wavePercentage);
       
       // Only animate dots in the wave zone
       if (distanceFromBottom > waveZone) {

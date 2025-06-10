@@ -13,24 +13,28 @@ const HomePage2 = () => {
     if (!canvas) return;
 
     const resizeCanvas = () => {
+      // Get the parent container dimensions
+      const container = canvas.parentElement;
+      const width = container.clientWidth;
+      const height = container.clientHeight;
+      
       // Handle device pixel ratio for crisp rendering
       const dpr = window.devicePixelRatio || 1;
-      const rect = canvas.getBoundingClientRect();
       
       // Set actual canvas size in memory
-      canvas.width = rect.width * dpr;
-      canvas.height = rect.height * dpr;
+      canvas.width = width * dpr;
+      canvas.height = height * dpr;
       
       // Scale canvas back down using CSS
-      canvas.style.width = rect.width + 'px';
-      canvas.style.height = rect.height + 'px';
+      canvas.style.width = width + 'px';
+      canvas.style.height = height + 'px';
       
       // Scale the drawing context to match device pixel ratio
       const ctx = canvas.getContext('2d');
       ctx.scale(dpr, dpr);
       
       if (animationRef.current) {
-        animationRef.current.resize(rect.width, rect.height);
+        animationRef.current.resize(width, height);
       }
     };
 

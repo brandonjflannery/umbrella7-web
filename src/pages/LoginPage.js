@@ -17,7 +17,7 @@ const LoginPage = () => {
       <div className="login-container">
         <div className="login-box">
           <img 
-            src={getImagePath('umbrella-logo-plain.png')}
+            src={getImagePath('umbrella7-slate2.png')}
             alt="Umbrella 7" 
             className="login-logo"
           />
