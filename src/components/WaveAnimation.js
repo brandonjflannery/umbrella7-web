@@ -5,6 +5,10 @@ export class WaveAnimation {
     this.dots = [];
     this.time = 0;
     
+    // Store logical dimensions (CSS dimensions)
+    this.width = parseInt(this.canvas.style.width) || 100;
+    this.height = parseInt(this.canvas.style.height) || 100;
+    
     // Grid settings - adjust for mobile
     const isMobile = window.innerWidth < 768;
     this.dotSize = isMobile ? 3 : 4;
@@ -26,12 +30,9 @@ export class WaveAnimation {
   }
   
   initializeGrid() {
-    // Use the canvas display dimensions, not the scaled dimensions
-    const width = this.canvas.width / (window.devicePixelRatio || 1);
-    const height = this.canvas.height / (window.devicePixelRatio || 1);
-    
-    const cols = Math.floor(width / this.spacing);
-    const rows = Math.floor(height / this.spacing);
+    // Use stored logical dimensions
+    const cols = Math.floor(this.width / this.spacing);
+    const rows = Math.floor(this.height / this.spacing);
     
     for (let i = 0; i < cols; i++) {
       for (let j = 0; j < rows; j++) {
@@ -76,14 +77,10 @@ export class WaveAnimation {
   }
   
   createWave() {
-    // Use display dimensions
-    const displayWidth = this.canvas.width / (window.devicePixelRatio || 1);
-    const displayHeight = this.canvas.height / (window.devicePixelRatio || 1);
-    
     // Random wave that travels across the screen
     this.waves.push({
-      x: -200 + Math.random() * (displayWidth + 400),
-      y: displayHeight,
+      x: -200 + Math.random() * (this.width + 400),
+      y: this.height,
       direction: -Math.PI/2 + (Math.random() - 0.5) * Math.PI/3, // Mostly upward
       speed: 0.5 + Math.random() * 1,
       strength: 0.5 + Math.random() * 0.5,
@@ -96,14 +93,10 @@ export class WaveAnimation {
   }
   
   createCurrent() {
-    // Use display dimensions
-    const displayWidth = this.canvas.width / (window.devicePixelRatio || 1);
-    const displayHeight = this.canvas.height / (window.devicePixelRatio || 1);
-    
     // Random current that affects a region
     this.currents.push({
-      x: Math.random() * displayWidth,
-      y: displayHeight * (0.75 + Math.random() * 0.25),
+      x: Math.random() * this.width,
+      y: this.height * (0.75 + Math.random() * 0.25),
       radius: 100 + Math.random() * 150,
       strength: 0.3 + Math.random() * 0.4,
       rotation: (Math.random() - 0.5) * 0.02,
@@ -150,13 +143,11 @@ export class WaveAnimation {
     
     // Update each dot
     this.dots.forEach(dot => {
-      // Use display dimensions for calculations
-      const displayHeight = this.canvas.height / (window.devicePixelRatio || 1);
-      const distanceFromBottom = displayHeight - dot.y;
+      const distanceFromBottom = this.height - dot.y;
       const isMobile = window.innerWidth < 768;
       const minWaveHeight = 150; // Minimum wave zone height
       const wavePercentage = isMobile ? 0.4 : 0.25;
-      const waveZone = Math.max(minWaveHeight, displayHeight * wavePercentage);
+      const waveZone = Math.max(minWaveHeight, this.height * wavePercentage);
       
       // Only animate dots in the wave zone
       if (distanceFromBottom > waveZone) {
@@ -295,12 +286,9 @@ export class WaveAnimation {
   }
   
   render() {
-    // Clear canvas - use display dimensions
-    const displayWidth = this.canvas.width / (window.devicePixelRatio || 1);
-    const displayHeight = this.canvas.height / (window.devicePixelRatio || 1);
-    
+    // Clear canvas
     this.ctx.fillStyle = '#0a0a0a';
-    this.ctx.fillRect(0, 0, displayWidth, displayHeight);
+    this.ctx.fillRect(0, 0, this.width, this.height);
     
     // Save context state
     this.ctx.save();
@@ -326,8 +314,11 @@ export class WaveAnimation {
   }
   
   resize(width, height) {
-    this.canvas.width = width;
-    this.canvas.height = height;
+    // Update logical dimensions
+    this.width = width;
+    this.height = height;
+    
+    // Clear and reinitialize
     this.dots = [];
     this.waves = [];
     this.currents = [];
