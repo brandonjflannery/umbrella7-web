@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/umbrella7-web/static/css/main.2a7e0c61.css",
+    "main.js": "/umbrella7-web/static/js/main.7ba45557.js",
+    "index.html": "/umbrella7-web/index.html",
+    "main.2a7e0c61.css.map": "/umbrella7-web/static/css/main.2a7e0c61.css.map",
+    "main.7ba45557.js.map": "/umbrella7-web/static/js/main.7ba45557.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.2a7e0c61.css",
+    "static/js/main.7ba45557.js"
+  ]
+}
