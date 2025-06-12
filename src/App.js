@@ -8,8 +8,8 @@ import { useSwipeGesture } from './hooks/useSwipeGesture';
 import './styles/App.css';
 
 function App() {
-  // Auto-collapse sidebar on mobile
-  const [sidebarCollapsed, setSidebarCollapsed] = useState(window.innerWidth < 768);
+  // Default to collapsed sidebar
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(true);
 
   // Handle window resize
   useEffect(() => {
