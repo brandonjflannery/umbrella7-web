@@ -17,7 +17,7 @@ const LoginPage = () => {
       <div className="login-container">
         <div className="login-box">
           <img 
-            src={getImagePath('umbrella7-slate2.png')}
+            src={getImagePath('u7-logo-slate.png')}
             alt="Umbrella 7" 
             className="login-logo"
           />
@@ -55,7 +55,7 @@ const LoginPage = () => {
           </form>
           
           <p className="login-footer">
-            Don't have an account? <a href="mailto:brandonjflannery@gmail.com">Contact us</a>
+            Don't have an account? <a href="mailto:brandon.flannery@umbrella7.com">Contact us</a>
           </p>
         </div>
       </div>

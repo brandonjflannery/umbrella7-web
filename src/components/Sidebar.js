@@ -55,7 +55,7 @@ const Sidebar = ({ collapsed, setCollapsed, isMobile }) => {
         </button>
         <div className="mobile-menu-content">
           <img 
-            src={getImagePath('umbrella7-plain.png')}
+            src={getImagePath('u7-logo-white.png')}
             alt="Umbrella 7" 
             className="mobile-menu-logo"
           />
@@ -88,7 +88,7 @@ const Sidebar = ({ collapsed, setCollapsed, isMobile }) => {
     <div className={`sidebar ${collapsed ? 'collapsed' : ''}`}>
       <div className="sidebar-header">
         <img 
-          src={getImagePath('umbrella7-plain.png')}
+          src={getImagePath('u7-logo-white.png')}
           alt="Umbrella 7" 
           className="header-logo"
         />
