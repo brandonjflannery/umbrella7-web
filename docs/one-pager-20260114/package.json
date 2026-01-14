@@ -1,0 +1,15 @@
+{
+  "name": "umbrella7-one-pager",
+  "version": "1.0.0",
+  "description": "Umbrella 7 Company One-Pager PDF Generator",
+  "main": "generate-pdf.js",
+  "scripts": {
+    "generate": "node generate-pdf.js",
+    "preview": "open index.html || xdg-open index.html"
+  },
+  "dependencies": {
+    "puppeteer": "^21.0.0"
+  },
+  "author": "Umbrella 7, LLC",
+  "private": true
+}
